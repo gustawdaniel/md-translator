@@ -1,0 +1,2 @@
+first:
+	deno task first
