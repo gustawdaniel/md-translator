@@ -1,6 +1,6 @@
 {
   "tasks": {
-    "first": "deno --allow-env --allow-net --allow-read --allow-write --allow-ffi main.ts ../blog/src/content/blog/en/2021-02-26-difference-between-json-files.md es"
+    "first": "deno --allow-env --allow-net --allow-read --allow-write --allow-ffi main.ts ../blog/src/content/blog/en/2021-02-26-calculating-the-difference-between-json-files.md pl"
   },
   "imports": {
     "@std/assert": "jsr:@std/assert@1"
