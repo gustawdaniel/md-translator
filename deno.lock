@@ -12,7 +12,9 @@
     "jsr:@std/internal@^1.0.4": "1.0.4",
     "jsr:@std/path@0.217": "0.217.0",
     "jsr:@std/path@0.221": "0.221.0",
-    "npm:openai@*": "4.70.2"
+    "npm:front-matter@*": "4.0.2",
+    "npm:openai@*": "4.70.2",
+    "npm:slugify@*": "1.6.6"
   },
   "jsr": {
     "@db/sqlite@0.11.1": {
@@ -104,6 +106,12 @@
         "humanize-ms"
       ]
     },
+    "argparse@1.0.10": {
+      "integrity": "sha512-o5Roy6tNG4SL/FOkCAN6RzjiakZS25RLYFrcMttJqbdd8BWrnA+fGz57iN5Pb06pvBGvl5gQ0B48dJlslXvoTg==",
+      "dependencies": [
+        "sprintf-js"
+      ]
+    },
     "asynckit@0.4.0": {
       "integrity": "sha512-Oei9OH4tRh0YqU3GxhX79dM/mwVgvbZJaSNaRk+bshkj0S5cfHcgYakreBjrHwatXKbz+IoIdYLxrKim2MjW0Q=="
     },
@@ -115,6 +123,9 @@
     },
     "delayed-stream@1.0.0": {
       "integrity": "sha512-ZySD7Nf91aLB0RxL4KGrKHBXl7Eds1DAmEdcoVawXnLD7SDhpNgtuII2aAkg7a7QS41jxPSZ17p4VdGnMHk3MQ=="
+    },
+    "esprima@4.0.1": {
+      "integrity": "sha512-eGuFFw7Upda+g4p+QHvnW0RyTX/SVeJBDM/gCtMARO0cLuT2HcEKnTPvhjV6aGeqrCB/sbNop0Kszm0jsaWU4A=="
     },
     "event-target-shim@5.0.1": {
       "integrity": "sha512-i/2XbnSz/uxRCU6+NdVJgKWDTM427+MqYbkQzD321DuCQJUqOuJKIA0IM2+W2xtYHdKOmZ4dR6fExsd4SXL+WQ=="
@@ -137,10 +148,23 @@
         "web-streams-polyfill"
       ]
     },
+    "front-matter@4.0.2": {
+      "integrity": "sha512-I8ZuJ/qG92NWX8i5x1Y8qyj3vizhXS31OxjKDu3LKP+7/qBgfIKValiZIEwoVoJKUHlhWtYrktkxV1XsX+pPlg==",
+      "dependencies": [
+        "js-yaml"
+      ]
+    },
     "humanize-ms@1.2.1": {
       "integrity": "sha512-Fl70vYtsAFb/C06PTS9dZBo7ihau+Tu/DNCk/OyHhea07S+aeMWpFFkUaXRa8fI+ScZbEI8dfSxwY7gxZ9SAVQ==",
       "dependencies": [
         "ms"
+      ]
+    },
+    "js-yaml@3.14.1": {
+      "integrity": "sha512-okMH7OXXJ7YrN9Ok3/SXrnu4iX9yOk+25nqX4imS2npuvTYDmo/QEZoqwZkYaIDk3jVvBOTOIEgEhaLOynBS9g==",
+      "dependencies": [
+        "argparse",
+        "esprima"
       ]
     },
     "mime-db@1.52.0": {
@@ -176,6 +200,12 @@
         "node-fetch"
       ]
     },
+    "slugify@1.6.6": {
+      "integrity": "sha512-h+z7HKHYXj6wJU+AnS/+IH8Uh9fdcX1Lrhg1/VMdf9PwoBQXFcXiAdsy2tSK0P6gKwJLXp02r90ahUCqHk9rrw=="
+    },
+    "sprintf-js@1.0.3": {
+      "integrity": "sha512-D9cPgkvLlV3t3IzL0D0YLvGA9Ahk4PcvVwUbN0dSGr1aP0Nrt4AEnTUbuGvquEC0mA64Gqt1fzirlRs5ibXx8g=="
+    },
     "tr46@0.0.3": {
       "integrity": "sha512-N3WMsuqV66lT30CrXNbEjx4GEwlow3v6rr4mCcv6prnfwhS01rkgyFdjPNBYd9br7LpXV1+Emh01fHnq2Gdgrw=="
     },
@@ -201,6 +231,7 @@
   },
   "redirects": {
     "https://deno.land/x/dotenv/mod.ts": "https://deno.land/x/dotenv@v3.2.2/mod.ts",
+    "https://deno.land/x/slugify/mod.ts": "https://deno.land/x/slugify@0.3.0/mod.ts",
     "https://deno.land/x/sqlite/mod.ts": "https://deno.land/x/sqlite@v3.9.1/mod.ts"
   },
   "remote": {
@@ -214,6 +245,7 @@
     "https://deno.land/x/checksum@1.4.0/sha1.ts": "a608a6493694b7d734acfc4eee83e09bd9deaa4909cdac07f3eed3db427f97ae",
     "https://deno.land/x/dotenv@v3.2.2/mod.ts": "077b48773de9205266a0b44c3c3a3c3083449ed64bb0b6cc461b95720678d38e",
     "https://deno.land/x/dotenv@v3.2.2/util.ts": "693730877b13f8ead2b79b2aa31e2a0652862f7dc0c5f6d2f313f4d39c7b7670",
+    "https://deno.land/x/slugify@0.3.0/mod.ts": "a862dd4af7aac637a44bb3a3507acaca4b52386f8bebf4483b5a43e9458af315",
     "https://deno.land/x/sqlite@v3.9.1/build/sqlite.js": "2afc7875c7b9c85d89730c4a311ab3a304e5d1bf761fbadd8c07bbdf130f5f9b",
     "https://deno.land/x/sqlite@v3.9.1/build/vfs.js": "7f7778a9fe499cd10738d6e43867340b50b67d3e39142b0065acd51a84cd2e03",
     "https://deno.land/x/sqlite@v3.9.1/mod.ts": "e09fc79d8065fe222578114b109b1fd60077bff1bb75448532077f784f4d6a83",
