@@ -1,9 +1,8 @@
 import { Database } from 'jsr:@db/sqlite@0.11';
 
 export function prepareDbSchema(db: Database) {
-
-// Create the table if it doesn't exist
-    db.exec(`
+  // Create the table if it doesn't exist
+  db.exec(`
   CREATE TABLE IF NOT EXISTS ai_requests (
     md5 TEXT PRIMARY KEY,
     input TEXT NOT NULL,
@@ -17,7 +16,7 @@ export function prepareDbSchema(db: Database) {
   );
 `);
 
-    db.exec(`
+  db.exec(`
   CREATE TABLE IF NOT EXISTS translations (
     sourceLang TEXT NOT NULL,
     targetLang TEXT NOT NULL,
@@ -26,7 +25,7 @@ export function prepareDbSchema(db: Database) {
   );
 `);
 
-    db.exec(`
+  db.exec(`
   CREATE INDEX IF NOT EXISTS idx_translations_source_target_text
   ON translations (sourceLang, targetLang, sourceText);
 `);

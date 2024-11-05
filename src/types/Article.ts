@@ -1,6 +1,6 @@
-import {ArticleComponent} from "./ArticleComponent.ts";
+import { ArticleComponent } from './ArticleComponent.ts';
 
 export interface Article<T> {
-    head: T;
-    body: ArticleComponent[];
+  head: T;
+  body: ArticleComponent[];
 }

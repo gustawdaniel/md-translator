@@ -1,4 +1,4 @@
-import {prepareDbSchema} from "./src/prepareDbSchema.ts";
+import { prepareDbSchema } from './src/prepareDbSchema.ts';
 
 const sourceText = 'communication-between-vue-components-in-meteor';
 const sourceLang = 'en';
@@ -9,21 +9,26 @@ const env = config();
 
 import OpenAI from 'npm:openai';
 const openai = new OpenAI({
-    // baseURL: 'http://localhost:11434/v1',
-    // apiKey: 'ollama'
-    apiKey: env.OPENAI_API_KEY,
+  // baseURL: 'http://localhost:11434/v1',
+  // apiKey: 'ollama'
+  apiKey: env.OPENAI_API_KEY,
 });
 
 import { Database } from 'jsr:@db/sqlite@0.11';
-import {AppAI} from "./src/AppAI.ts";
-import {systemMessage} from "./src/systemMessage.ts";
+import { AppAI } from './src/AppAI.ts';
+import { systemMessage } from './src/systemMessage.ts';
 const db = new Database('translations.db');
 prepareDbSchema(db);
 
 const appAi = new AppAI(openai, db);
 
 if (import.meta.main) {
-    const aiResponse = await appAi.callOpenAI(sourceText, systemMessage(sourceLang, targetLang));
-    console.log(aiResponse);
-    db.prepare('DELETE FROM translations WHERE sourceText = ? AND sourceLang = ? AND targetLang = ?').run(sourceText, sourceLang, targetLang);
+  const aiResponse = await appAi.callOpenAI(
+    sourceText,
+    systemMessage(sourceLang, targetLang),
+  );
+  console.log(aiResponse);
+  db.prepare(
+    'DELETE FROM translations WHERE sourceText = ? AND sourceLang = ? AND targetLang = ?',
+  ).run(sourceText, sourceLang, targetLang);
 }

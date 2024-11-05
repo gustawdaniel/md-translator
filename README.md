@@ -1,13 +1,30 @@
-Next steps:
+## Scripts
 
-- [ ] Create `frontmatter` for the post
-- [ ] translate the text fragments
-- [ ] assemble the post
-- [ ] save the post in correct path
-- [ ] accept all directory instead of just one post
-- [ ] add information about last file modification date
+Single sentence AI call, remove translation cache
 
-Architecture:
+```bash
+deno -A sentence.ts
+```
+
+Format single file
+
+```bash
+deno -A format.ts ../blog/src/content/blog/en/2021-02-26-calculating-the-difference-between-json-files.md
+```
+
+Translate single document
+
+```bash
+deno -A main.ts ../blog/src/content/blog/en/2021-04-21-communication-between-vue-components-in-meteor.md es
+```
+
+Refine cache by correction sync
+
+```bash
+deno -A sync.ts ../blog/src/content/blog/en/2021-04-21-communication-between-vue-components-in-meteor.md es
+```
+
+## Stages:
 
 Input:
 
@@ -38,17 +55,3 @@ Stage 3:
 
 Text and code organized to blocks. Each text block is translated, while code
 left untouched.
-
----
-
-Format
-
-```bash
-deno -A format.ts ../blog/src/content/blog/en/2021-02-26-calculating-the-difference-between-json-files.md
-```
-
-Translate single document
-
-```
-deno -A main.ts ../blog/src/content/blog/en/2021-04-21-communication-between-vue-components-in-meteor.md es
-```

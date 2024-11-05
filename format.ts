@@ -1,20 +1,20 @@
-import {fileExists} from "./src/fileExists.ts";
-import {ArticleFrontMatter} from "./src/types/ArticleFrontMatter.ts";
-import {parseArticle} from "./src/parseArticle.ts";
-import {stringifyArticle} from "./src/stringifyArticle.ts";
+import { fileExists } from './src/fileExists.ts';
+import { ArticleFrontMatter } from './src/types/ArticleFrontMatter.ts';
+import { parseArticle } from './src/parseArticle.ts';
+import { stringifyArticle } from './src/stringifyArticle.ts';
 
 if (import.meta.main) {
-    const [filePath] = Deno.args;
+  const [filePath] = Deno.args;
 
-    if(await fileExists(filePath)) {
-        const fileContent = await Deno.readTextFile(filePath);
-        const content = parseArticle<ArticleFrontMatter>(fileContent);
-        const text = stringifyArticle(content);
+  if (await fileExists(filePath)) {
+    const fileContent = await Deno.readTextFile(filePath);
+    const content = parseArticle<ArticleFrontMatter>(fileContent);
+    const text = stringifyArticle(content);
 
-        // console.log(text);
+    // console.log(text);
 
-        await Deno.writeTextFile(filePath, text);
-    } else {
-        console.log("File not exists.");
-    }
+    await Deno.writeTextFile(filePath, text);
+  } else {
+    console.log('File not exists.');
+  }
 }
