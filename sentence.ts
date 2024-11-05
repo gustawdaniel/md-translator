@@ -1,8 +1,8 @@
 import {prepareDbSchema} from "./src/prepareDbSchema.ts";
 
-const sourceText = 'w-jaki-sposob-wojna-o-kompatybilnosc-uksztaltowala-frontend';
-const sourceLang = 'pl';
-const targetLang = 'en';
+const sourceText = 'communication-between-vue-components-in-meteor';
+const sourceLang = 'en';
+const targetLang = 'es';
 
 import { config } from 'https://deno.land/x/dotenv/mod.ts';
 const env = config();
@@ -25,4 +25,5 @@ const appAi = new AppAI(openai, db);
 if (import.meta.main) {
     const aiResponse = await appAi.callOpenAI(sourceText, systemMessage(sourceLang, targetLang));
     console.log(aiResponse);
+    db.prepare('DELETE FROM translations WHERE sourceText = ? AND sourceLang = ? AND targetLang = ?').run(sourceText, sourceLang, targetLang);
 }

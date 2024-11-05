@@ -46,3 +46,9 @@ Format
 ```bash
 deno -A format.ts ../blog/src/content/blog/en/2021-02-26-calculating-the-difference-between-json-files.md
 ```
+
+Translate single document
+
+```
+deno -A main.ts ../blog/src/content/blog/en/2021-04-21-communication-between-vue-components-in-meteor.md es
+```

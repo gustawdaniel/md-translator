@@ -80,7 +80,9 @@ export class AppAI {
             throw new Error('Failed to insert the response into the database.');
         }
 
-        console.log(`AI Req: Tokens ${dbResponse.totalTokens} in ${dbResponse.durationMs}ms [${dbResponse.responseContent.substring(0,40)}]`);
+        console.log(`AI Req: Tokens ${dbResponse.totalTokens} in ${dbResponse.durationMs}ms [${
+            dbResponse.responseContent.substring(0,40).replaceAll('\n', ' ')
+        }]`);
 
         if(choices[0].finish_reason !== 'stop') {
             throw new Error(`Finish reason: ${choices[0].finish_reason}.`);
