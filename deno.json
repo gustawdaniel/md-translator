@@ -6,8 +6,6 @@
     "@std/assert": "jsr:@std/assert@1"
   },
   "fmt": {
-    "options": {
-      "singleQuote": true
-    }
+    "singleQuote": true
   }
 }

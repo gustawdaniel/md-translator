@@ -11,6 +11,23 @@ function trimArticleComponentContent(
   };
 }
 
+function pushToComponents(
+  components: ArticleComponent[],
+  component: ArticleComponent,
+) {
+  const trimmedComponent = trimArticleComponentContent(component);
+  if (trimmedComponent.content) {
+    components.push(trimmedComponent);
+  }
+}
+
+function defaultComponent(): ArticleComponent {
+  return {
+    type: 'text',
+    content: '',
+  };
+}
+
 export function parseArticle<T>(
   content: string,
 ): Article<T> {
@@ -35,7 +52,9 @@ export function parseArticle<T>(
           head[currentHeadKey] = [];
         }
 
-        (head[currentHeadKey] as string[]).push(key.replace('-', '').trim());
+        (head[currentHeadKey] as string[]).push(
+          key.replace('-', '').trim(),
+        );
       }
     } else if (currentHeadKey && line.startsWith('  ')) {
       // Line starts with spaces and is part of a multiline value
@@ -47,10 +66,7 @@ export function parseArticle<T>(
 
   const components: ArticleComponent[] = [];
 
-  let currentComponent: ArticleComponent = {
-    type: 'text',
-    content: '',
-  };
+  let currentComponent = defaultComponent();
 
   for (const line of bodyContent.split('\n')) {
     if (line.startsWith('```')) {
@@ -58,17 +74,27 @@ export function parseArticle<T>(
         currentComponent.content += line + '\n';
       }
 
-      components.push(trimArticleComponentContent(currentComponent));
+      pushToComponents(components, currentComponent);
       currentComponent = {
         type: currentComponent.type === 'text' ? 'code' : 'text',
         content: currentComponent.type === 'text' ? line + '\n' : '',
       };
+    } else if (
+      currentComponent.type === 'text' && line.startsWith('![') &&
+      line.endsWith(')') && line.includes('](')
+    ) {
+      pushToComponents(components, currentComponent);
+      pushToComponents(components, {
+        type: 'img',
+        content: line,
+      });
+      currentComponent = defaultComponent();
     } else {
       currentComponent.content += line + '\n';
     }
   }
 
-  components.push(trimArticleComponentContent(currentComponent));
+  pushToComponents(components, currentComponent);
 
   return {
     head: head as T,

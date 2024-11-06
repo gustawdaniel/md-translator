@@ -20,6 +20,8 @@ export function stringifyArticle(article: Article<ArticleFrontMatter>): string {
   for (const component of article.body) {
     if (component.type === 'text') {
       text += '\n' + component.content + '\n';
+    } else if (component.type === 'img') {
+      text += '\n' + component.content + '\n';
     } else {
       text += '\n' + component.content + '\n';
     }

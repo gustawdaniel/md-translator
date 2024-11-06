@@ -11,6 +11,7 @@ import { Lang } from './src/types/Lang.ts';
 import { ArticleComponent } from './src/types/ArticleComponent.ts';
 import { TranslationDbRow } from './src/types/TranslationDbRow.ts';
 import { slugify } from 'https://deno.land/x/slugify@0.3.0/mod.ts';
+import { generateArticleBodySignature } from './src/generateArticleBodySignature.ts';
 const db = new Database('translations.db', { int64: true });
 
 prepareDbSchema(db);
@@ -100,17 +101,6 @@ function syncArticleHead<T extends ArticleFrontMatter>(
       sourceText: sourcePureSlug,
     }, targetPureSlug);
   }
-}
-
-function generateArticleBodySignature(articleBody: ArticleComponent[]): string {
-  return articleBody.map((component) => {
-    switch (component.type) {
-      case 'code':
-        return 'c';
-      case 'text':
-        return 't';
-    }
-  }).join('');
 }
 
 function syncArticleBody(

@@ -1,4 +1,4 @@
 export interface ArticleComponent {
-  type: 'text' | 'code';
+  type: 'text' | 'code' | 'img';
   content: string;
 }
