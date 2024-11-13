@@ -1,6 +1,6 @@
 import { prepareDbSchema } from './src/prepareDbSchema.ts';
 
-const sourceText = 'communication-between-vue-components-in-meteor';
+const sourceText = 'quicksort-implementation-in-rust-typescript-and-go';
 const sourceLang = 'en';
 const targetLang = 'es';
 

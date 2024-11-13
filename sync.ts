@@ -12,6 +12,7 @@ import { ArticleComponent } from './src/types/ArticleComponent.ts';
 import { TranslationDbRow } from './src/types/TranslationDbRow.ts';
 import { slugify } from 'https://deno.land/x/slugify@0.3.0/mod.ts';
 import { generateArticleBodySignature } from './src/generateArticleBodySignature.ts';
+import {fileExists} from "./src/fileExists.ts";
 const db = new Database('translations.db', { int64: true });
 
 prepareDbSchema(db);
@@ -35,13 +36,25 @@ function getDbTranslation(
 }
 
 function setDbTranslation(selector: TranslationSelector, translation: string) {
+  // db.prepare(
+  //   `UPDATE translations
+  //    SET targetText = :targetText
+  //    WHERE sourceLang = :sourceLang
+  //       AND targetLang = :targetLang
+  //       AND sourceText = :sourceText`,
+  // ).get({
+  //   sourceLang: selector.sourceLang,
+  //   targetLang: selector.targetLang,
+  //   sourceText: selector.sourceText,
+  //   targetText: translation,
+  // });
+
   db.prepare(
-    `UPDATE translations 
-     SET targetText = :targetText
-     WHERE sourceLang = :sourceLang 
-        AND targetLang = :targetLang 
-        AND sourceText = :sourceText`,
-  ).get({
+      `INSERT INTO translations (sourceLang, targetLang, sourceText, targetText) 
+   VALUES (:sourceLang, :targetLang, :sourceText, :targetText)
+   ON CONFLICT (sourceLang, targetLang, sourceText) 
+   DO UPDATE SET targetText = :targetText`
+  ).run({
     sourceLang: selector.sourceLang,
     targetLang: selector.targetLang,
     sourceText: selector.sourceText,
@@ -145,6 +158,13 @@ async function syncFileWithLanguage(filePath: string, targetLang: Lang) {
     const sourceFp = new FilePath(filePath);
     const sourceLang = sourceFp.lang;
     const targetFp = Object.assign(sourceFp, { lang: targetLang });
+
+    const sourceFileExists = await fileExists(filePath)
+    const targetFileExists = await fileExists(targetFp.toString())
+
+    if(!sourceFileExists) { console.log(`Source: ${filePath} not exists. Sync impossible.`); return; }
+    if(!targetFileExists) { console.log(`Target: ${targetFp.toString()} not exists. Sync impossible.`); return; }
+
     const sourceFileContent = await Deno.readTextFile(filePath);
     const targetFileContent = await Deno.readTextFile(targetFp.toString());
 
@@ -154,12 +174,6 @@ async function syncFileWithLanguage(filePath: string, targetLang: Lang) {
     const targetContent = parseArticle<ArticleFrontMatter>(
       targetFileContent,
     );
-
-    console.log('s', sourceContent.head.title);
-    console.log('t', targetContent.head.title);
-
-    console.log('sl', sourceLang);
-    console.log('tl', targetLang);
 
     syncArticleHead(
       sourceContent.head,

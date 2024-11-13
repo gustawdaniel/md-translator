@@ -24,6 +24,19 @@ Refine cache by correction sync
 deno -A sync.ts ../blog/src/content/blog/en/2021-04-21-communication-between-vue-components-in-meteor.md es
 ```
 
+## Translate all
+
+To translate all documents run
+
+```bash
+bash tr_all.sh
+```
+
+It will:
+- format source
+- sync cache
+- translate
+
 ## Stages:
 
 Input:

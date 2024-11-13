@@ -21,7 +21,8 @@ export function prepareDbSchema(db: Database) {
     sourceLang TEXT NOT NULL,
     targetLang TEXT NOT NULL,
     sourceText TEXT NOT NULL,
-    targetText TEXT NOT NULL
+    targetText TEXT NOT NULL,
+    UNIQUE(sourceLang, targetLang, sourceText)
   );
 `);
 
